@@ -30,7 +30,9 @@ export default async function IssuesPage () {
             return (
               <Table.Row key={ele.issue_id}>
                 <Table.Cell>
-                  {ele.issue_title}
+                  <Link href={`/issues/${ele.issue_id}`}>
+                    {ele.issue_title}
+                  </Link>
                   <div className="block md:hidden">
                     <IssueStatusBadge status={ele.issue_status}/>
                   </div>
