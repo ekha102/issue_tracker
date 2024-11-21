@@ -30,7 +30,7 @@ export default async function IssuesPage () {
             return (
               <Table.Row key={ele.issue_id}>
                 <Table.Cell>
-                  <Link href={`/issues/${ele.issue_id}`}>
+                  <Link className="text-violet-600 hover:underline" href={`/issues/${ele.issue_id}`}>
                     {ele.issue_title}
                   </Link>
                   <div className="block md:hidden">
