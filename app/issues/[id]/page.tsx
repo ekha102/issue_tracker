@@ -31,7 +31,6 @@ export default async function IssueDetailPage ({params}: Props) {
       <Box>
         <IssueDetails issue={issue}/>
       </Box>
-
       <Box>
         <EditIssueButton issueId={issue.issue_id} />
       </Box>
