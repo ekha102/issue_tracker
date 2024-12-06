@@ -10,7 +10,7 @@ import axios from "axios";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { createIssueSchema } from "@/app/validationSchema";
+import { issueSchema } from "@/app/validationSchema";
 import { useRouter } from "next/navigation";
 import Spinner from "@/app/components/spinner";
 import { Issue } from "@prisma/client";
@@ -19,7 +19,7 @@ import { Issue } from "@prisma/client";
 
 
 
-type IssueFormData = z.infer<typeof createIssueSchema>;
+type IssueFormData = z.infer<typeof issueSchema>;
 
 interface Props {
   issue?: Issue
@@ -30,7 +30,7 @@ export default function IssueForm( {issue}: Props) {
   const router = useRouter();
   const [isSubmitting, setIssubmitting] = useState(false);
   const {register, control, handleSubmit, formState: {errors}} = useForm<IssueFormData>({
-    resolver: zodResolver(createIssueSchema)
+    resolver: zodResolver(issueSchema)
   });
   // console.log(register("issue_title"));
 
