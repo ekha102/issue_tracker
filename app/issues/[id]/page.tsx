@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import { Pencil2Icon } from "@radix-ui/react-icons"
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 
 
@@ -32,7 +33,10 @@ export default async function IssueDetailPage ({params}: Props) {
         <IssueDetails issue={issue}/>
       </Box>
       <Box>
-        <EditIssueButton issueId={issue.issue_id} />
+        <Flex direction="column" gap="4">
+          <EditIssueButton issueId={issue.issue_id} />
+          <DeleteIssueButton issueId={issue.issue_id} />
+        </Flex>
       </Box>
     </Grid>
   );

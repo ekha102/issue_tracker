@@ -8,7 +8,7 @@ interface Props {
   params: {id: string}
 }
 
-export async function POST(request: NextRequest, {params}: Props) {
+export async function PUT(request: NextRequest, {params}: Props) {
   const body = await request.json();
   const validation = issueSchema.safeParse(body);
   if (!validation.success)

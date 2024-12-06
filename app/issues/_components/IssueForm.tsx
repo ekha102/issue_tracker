@@ -28,21 +28,26 @@ interface Props {
 export default function IssueForm( {issue}: Props) {
   const [error, setError] = useState("");
   const router = useRouter();
-  const [isSubmitting, setIssubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {register, control, handleSubmit, formState: {errors}} = useForm<IssueFormData>({
     resolver: zodResolver(issueSchema)
   });
   // console.log(register("issue_title"));
+  // console.log("Id of issue:", issue?.issue_id)
 
 
 
   const onSubmit = async (values: IssueFormData) => {
     try {
-      setIssubmitting(true);
-      await axios.post("/api/issues", values);
+      setIsSubmitting(true);
+      if (issue?.issue_id) {
+        await axios.put("/api/issues/" + issue.issue_id, values)
+      } else {
+        await axios.post("/api/issues", values);
+      }
       router.push("/issues");
     } catch (error) {
-      setIssubmitting(false);
+      setIsSubmitting(false);
       setError("An unexpected error occured.");
     }
   }
@@ -69,7 +74,7 @@ export default function IssueForm( {issue}: Props) {
           }}
         />
         {errors.issue_desc && <Text color="red" as="p">{errors.issue_desc.message}</Text>}
-        <Button disabled={isSubmitting}>Submit New Issue {isSubmitting && <Spinner/>} </Button>
+        <Button disabled={isSubmitting}>{issue?.issue_id ? "Update Issue" : "Submit New Issue"} {isSubmitting && <Spinner/>} </Button>
       </form>
 
     </div>
