@@ -31,3 +31,19 @@ export async function PUT(request: NextRequest, {params}: Props) {
 
   return NextResponse.json(updatedIssue);
 }
+
+// Delete function to API 
+export async function DELETE(request: NextRequest, {params}: Props) {
+  const issueId = await prisma.issue.findUnique({
+    where: {issue_id : parseInt(params.id)}
+  });
+
+  if (!issueId) 
+    return NextResponse.json({ error: 'Invalid issue' }, { status: 404 });
+  // console.log("Testing: ", issueId);
+  await prisma.issue.delete({
+    where: {issue_id: issueId.issue_id},
+  })
+  return NextResponse.json("");
+
+}
