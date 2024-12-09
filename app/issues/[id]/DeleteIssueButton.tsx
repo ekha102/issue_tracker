@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import DailogDeleteErrorMessage from './DailogDeleteErrorMessage';
+import Spinner from '@/app/components/spinner';
 
 
 
@@ -11,13 +12,16 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   // console.log("issueID: ", issueId);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const HandleDelete = async (issueId: number) => {
     // console.log("Testing ID: ", issueId);
     try {
+      setIsDeleting(true);
       await axios.delete("/api/issues/" + issueId);
       router.push("/issues");
     } catch (error) {
+      setIsDeleting(false);
       setErrorMessage(true);
     }
 
@@ -26,7 +30,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">Delete Issue</Button>
+          <Button color="red" disabled={isDeleting}>Delete Issue {isDeleting ? <Spinner/> : false}</Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content maxWidth="450px">
           <AlertDialog.Title>Conformation to delete</AlertDialog.Title>
