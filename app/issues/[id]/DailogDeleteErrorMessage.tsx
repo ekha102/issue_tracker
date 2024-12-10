@@ -4,7 +4,7 @@ import React from 'react'
 
 
 
-const DailogDeleteErrorMessage = ({errorMessage, setErrorMessage}) => {
+const DailogDeleteErrorMessage = ({errorMessage,setErrorMessage}) => {
   return (
     <AlertDialog.Root open={errorMessage}>
       <AlertDialog.Content>
